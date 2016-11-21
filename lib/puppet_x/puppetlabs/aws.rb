@@ -226,6 +226,14 @@ This could be because some other process is modifying AWS at the same time."""
         self.class.ecs_client(region)
       end
 
+      def self.efs_client(region = default_region)
+        ::Aws::EFS::Client.new(client_config(region))
+      end
+
+      def efs_client(region = default_region)
+        self.class.efs_client(region)
+      end
+
       def tags_for_resource
         tags = resource[:tags] ? resource[:tags].map { |k,v| {key: k, value: v} } : []
         tags << {key: 'Name', value: name}
